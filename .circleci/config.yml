@@ -6,3 +6,8 @@ jobs:
     steps:
       - checkout
       - run: echo "Hello World !"
+      - run:
+          name: Unit Test
+          commend: |
+              echo "Start My Unit Test !"
+              python -m unittest discover 
