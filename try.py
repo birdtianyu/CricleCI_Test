@@ -2,7 +2,7 @@
 # datetime:2020/03/05 11:22
 # software: PyCharm
 """
-説明：
+説明：Sample Code
 """
 
 import cv2
