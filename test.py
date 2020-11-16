@@ -1,31 +1,22 @@
-import io
-import os
-import pdb
+from Sample import Count
+import unittest
 
-# Imports the Google Cloud client library
-from google.cloud import vision
-from google.oauth2 import service_account
+class TestAdd(unittest.TestCase):
+    def setUp(self):
+        print('test start')
 
-pdb.set_trace()
+    def test_add(self):
+        j = Count(2, 3)
+        self.assertEqual(j.add(), 5, 'error！')
 
-credentials = service_account.Credentials.from_service_account_file('Project-491c3b474809.json')
-client = vision.ImageAnnotatorClient(credentials=credentials)
+    def tearDown(self):
+        print('test end')
 
-# The name of the image file to annotate
-file_name = os.path.abspath('result.jpg')
 
-# Loads the image into memory
-with io.open(file_name, 'rb') as image_file:
-    content = image_file.read()
+if __name__ == '__main__':
+     suite = unittest.TestSuite()
+     suite.addTest(TestAdd('test_add'))
 
-image = vision.Image(content=content)
-
-# Performs label detection on the image file
-response = client.label_detection(image=image)
-labels = response.label_annotations
-
-pdb.set_trace()
-
-print('Labels:')
-for label in labels:
-    print(label.description)
+     runner = unittest.TextTestRunner()
+     runner.run(suite)
+     print('Finish!')
