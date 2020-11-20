@@ -8,7 +8,7 @@ jobs:
       - run: echo "Hello World !"
       - add_ssh_keys:
           fingerprints:
-            - "13:b5:50:4c:c5:4c:4c:53:54:2f:d2:2f:fe:f3:b7:d3"
+            - "0a:6b:92:c6:4a:39:6b:4f:50:ee:37:21:3a:ed:aa:00"
       - run:
           name: Unit Test
           command: |
