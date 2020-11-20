@@ -6,6 +6,9 @@ jobs:
     steps:
       - checkout
       - run: echo "Hello World !"
+      - add_ssh_keys:
+          fingerprints:
+            - "13:b5:50:4c:c5:4c:4c:53:54:2f:d2:2f:fe:f3:b7:d3"
       - run:
           name: Unit Test
           command: |
