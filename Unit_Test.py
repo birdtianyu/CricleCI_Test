@@ -1,4 +1,3 @@
-import ControlFalconMainWindow
 import unittest
 
 class TestMyCode(unittest.TestCase):
