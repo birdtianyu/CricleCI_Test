@@ -7,27 +7,26 @@
 import tensorflow as tf
 import numpy as np
 
-# 1.create data
-data_x = np.random.rand(100).astype(np.float32)
-data_y = data_x*0.3 + 0.9
+train_X = np.linspace(-1, 1, 100)
+train_X = np.expand_dims(train_X, axis=-1)
 
-# 2.create tensorflow structure
-Weights = tf.Variable(tf.random_uniform([1], -1.0, 1.0))  # 随机生成-1.0到1.0的一位权值数列
-biases = tf.Variable(tf.zeros([1]))                       # 创建初始值为0的一位偏置
+train_Y = 2 * train_X + np.random.randn(*train_X.shape) * 0.33 + 10
 
-predicted_y = Weights*data_x + biases                     # 预测的y值
 
-loss = tf.reduce_mean(tf.square(predicted_y - data_y))    # 误差
-optimizer = tf.train.GradientDescentOptimizer(0.5)        # 定义学习效率（小于1.0）为0.5的优化器
-train = optimizer.minimize(loss)                          # 用优化器减小误差
+# First create a  model with one unit of dense and one bias
+input = tf.keras.layers.Input(shape=(1,))
+w = tf.keras.layers.Dense(1)(input)   # use_bias is True by default
+model = tf.keras.Model(inputs=input, outputs=w)
 
-init = tf.global_variables_initializer()                  # 初始化所有变量
+opt=tf.keras.optimizers.SGD(0.1)
+mse=tf.keras.losses.MeanSquaredError()
 
-# 3.activate tensorflow structure
-sess = tf.Session()
-sess.run(init)                                            # 激活所有变量
+for i in range(20):
+    print('Epoch: ', i)
+    with tf.GradientTape() as grad_tape:
+        logits = model(train_X, training=True)
+        model_loss = mse(train_Y, logits)
+        print('Loss =', model_loss.numpy())
 
-for step in range(100):
-    sess.run(train)
-    if step % 20 ==0:
-        print('step:', step, 'Weights:', sess.run(Weights), 'biases:', sess.run(biases))
+    gradients = grad_tape.gradient(model_loss, model.trainable_variables)
+    opt.apply_gradients(zip(gradients, model.trainable_variables))
