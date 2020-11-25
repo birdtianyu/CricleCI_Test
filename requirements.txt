@@ -1,5 +1,3 @@
-﻿ipython
 jupyter
-matplotlib
 numpy 
 tensorflow
