@@ -76,4 +76,3 @@ plt.subplot(1,2,2)
 plot_value_array(number, predictions[number],  y_test)
 
 plt.savefig('./image.png',bbox_inches='tight')
-plt.show()
