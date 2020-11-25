@@ -26,4 +26,5 @@ jobs:
           name: Unit Test
           command: |
             echo "Start My Unit Test !"
+            pip install -r requirements.txt
             python -m unittest discover 
