@@ -68,11 +68,11 @@ def plot_value_array(i, predictions_array, true_label):
 number = random.randint(1,100)
 predictions = model.predict(x_test)
 x_train = x_train[..., np.newaxis]
-
+print("Done!")
 plt.figure(figsize=(6,3))
 plt.subplot(1,2,1)
 plot_image(number, predictions[number], y_test, x_test)
 plt.subplot(1,2,2)
 plot_value_array(number, predictions[number],  y_test)
-
+print("Well Done!")
 plt.savefig('./image.png',bbox_inches='tight')
