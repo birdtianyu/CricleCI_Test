@@ -1,7 +1,3 @@
-﻿ipython
 jupyter
-matplotlib
 numpy 
-opencv-python
-PyQt5
 tensorflow
