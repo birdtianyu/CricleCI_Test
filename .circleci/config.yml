@@ -10,6 +10,12 @@ jobs:
           fingerprints:
             - "0a:6b:92:c6:4a:39:6b:4f:50:ee:37:21:3a:ed:aa:00"
       - run:
+          name: ダミー アーティファクトの作成
+          command: |
+            echo "my artifact file" > /tmp/artifact1;
+            mkdir /tmp/artifacts;
+            echo "my artifact files in a dir" > /tmp/artifacts/artifact2;
+      - run:
           name: Unit Test
           command: |
             echo "Start My Unit Test !"
