@@ -1,3 +1,4 @@
 jupyter
-numpy 
+numpy
+matplotlib
 tensorflow
