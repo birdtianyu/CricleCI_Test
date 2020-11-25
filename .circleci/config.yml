@@ -31,8 +31,8 @@ jobs:
             
             git config --global user.name "birdtianyu"
             git config --global user.email "birdtianyu@gmail.com"
-            echo "output of a.out" > a.txt
-            git add a.txt
+            python -m unittest discover
+            git add image.png
             git commit -m "[skip ci] updates GitHub Pages"
             if [ $? -ne 0 ]; then
               echo "nothing to commit"
