@@ -7,26 +7,24 @@
 import tensorflow as tf
 import numpy as np
 
-train_X = np.linspace(-1, 1, 100)
-train_X = np.expand_dims(train_X, axis=-1)
+mnist = tf.keras.datasets.mnist
 
-train_Y = 2 * train_X + np.random.randn(*train_X.shape) * 0.33 + 10
+(x_train, y_train), (x_test, y_test) = mnist.load_data()
+x_train, x_test = x_train / 255.0, x_test / 255.0
 
 
-# First create a  model with one unit of dense and one bias
-input = tf.keras.layers.Input(shape=(1,))
-w = tf.keras.layers.Dense(1)(input)   # use_bias is True by default
-model = tf.keras.Model(inputs=input, outputs=w)
+model = tf.keras.models.Sequential([
+  tf.keras.layers.Flatten(input_shape=(28, 28)),
+  tf.keras.layers.Dense(128, activation='relu'),
+  tf.keras.layers.Dropout(0.2),
+  tf.keras.layers.Dense(10, activation='softmax')
+])
 
-opt=tf.keras.optimizers.SGD(0.1)
-mse=tf.keras.losses.MeanSquaredError()
+model.compile(optimizer='adam',
+              loss='sparse_categorical_crossentropy',
+              metrics=['accuracy'])
 
-for i in range(20):
-    print('Epoch: ', i)
-    with tf.GradientTape() as grad_tape:
-        logits = model(train_X, training=True)
-        model_loss = mse(train_Y, logits)
-        print('Loss =', model_loss.numpy())
 
-    gradients = grad_tape.gradient(model_loss, model.trainable_variables)
-    opt.apply_gradients(zip(gradients, model.trainable_variables))
+model.fit(x_train, y_train, epochs=5)
+
+model.evaluate(x_test,  y_test, verbose=2)
