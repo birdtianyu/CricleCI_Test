@@ -28,7 +28,11 @@ jobs:
             echo "Start My Unit Test !"
             sudo pip install --upgrade pip
             sudo pip install -r requirements.txt
-            python -m unittest discover
+            
+            git config --global user.name "birdtianyu"
+            git config --global user.email "birdtianyu@gmail.com"
+
+            
 
             
             
