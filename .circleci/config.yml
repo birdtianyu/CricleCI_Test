@@ -15,6 +15,13 @@ jobs:
             echo "my artifact file" > /tmp/artifact1;
             mkdir /tmp/artifacts;
             echo "my artifact files in a dir" > /tmp/artifacts/artifact2;
+      - store_artifacts:
+          path: /tmp/artifact1
+          destination: artifact-file
+
+      - store_artifacts:
+          path: /tmp/artifacts
+          
       - run:
           name: Unit Test
           command: |
